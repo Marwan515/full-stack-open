@@ -24,12 +24,16 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [mostVoted, updateVote] = useState(null)
+  const [currentVote, currentV] = useState(null)
+
   const genAnecdote = () => {
     const x = Math.floor(Math.random() * (anecdotes.length - 1)) + 1
+    currentV(points[x])
     return setSelected(x)
   }
   const vote = () => {
     points[selected] += 1
+    currentV(points[selected])
     const x = points[selected]
     const y = Math.max(...points)
     if (x >= y) {
@@ -38,12 +42,11 @@ const App = () => {
       return updateVote(points.indexOf(y))
     }
   }
-  let current = points[selected]
   return (
     <div>
       <h2>Anecdote of the day</h2>
       {anecdotes[selected]}
-      <p>has {current} votes</p>
+      <p>has {currentVote} votes</p>
       <br />
       <Button handler={vote} text="Vote" />
       <Button handler={genAnecdote} text="Generate Anecdote" />

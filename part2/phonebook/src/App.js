@@ -57,7 +57,7 @@ const App = () => {
           setMessageType(null)
         }, 2500)
     } else if (existingContact) {
-      if (window.confirm(`${newName} is already added to the phonebook, Replace the old number with the new one ?`)) {
+      if (window.confirm(`${existingContact.name} is already added to the phonebook, Replace the old number with the new one ?`)) {
         existingContact.number = newNumber
         phoneBookService
           .updateContact(existingContact.id, existingContact)
@@ -65,15 +65,15 @@ const App = () => {
             setUpdatePersons('updated contact')
             setNewName('')
             setNewNumber('')
-            setMessage(`${event.target.getAttribute('data-name')}'s details Has Been have been updated!`)
+            setMessage(`${existingContact.name}'s details Has Been have been updated!`)
             setMessageType('success')
             setTimeout(() => {
             setMessage(null)
             setMessageType(null)
             }, 2500)
           })
-          .catch(error => {
-            setMessage(`${newName}'s details Has already been removed from the server!`)
+          .catch(err => {
+            setMessage(err.error)
             setMessageType('error')
             setTimeout(() => {
             setMessage(null)
@@ -86,7 +86,7 @@ const App = () => {
       }
     } else {
       phoneBookService
-        .create({name: newName, number: newNumber, id: persons.length + 1})
+        .create({name: newName, phoneNumber: newNumber})
         .then(rc => {
           setMessage(`${newName} Has Been added to the Phonebook!`)
           setMessageType('success')
@@ -94,9 +94,20 @@ const App = () => {
             setMessage(null)
             setMessageType(null)
           }, 2500)
-          setUpdatePersons("contact added")
+          setUpdatePersons(rc.data)
           setNewName('')
           setNewNumber('')
+        })
+        .catch(err => {
+          setMessage(err.response.data.error)
+          setMessageType('error')
+          setTimeout(() => {
+          setMessage(null)
+          setNewName('')
+          setNewNumber('')
+          setMessageType(null)
+          }, 4500)
+          setUpdatePersons('errorUpdated')
         })
     }
   }
@@ -108,14 +119,14 @@ const App = () => {
         .then(r => {
           setUpdatePersons("deleted")
           setMessage(`${event.target.getAttribute('data-name')} Has Been deleted!`)
-          setMessageType('error')
+          setMessageType('success')
           setTimeout(() => {
             setMessage(null)
             setMessageType(null)
           }, 2500)
         })
-        .catch(error => {
-          setMessage(`${event.target.getAttribute('data-name')}'s details Has already been removed from the server!`)
+        .catch(err => {
+          setMessage(err.error)
           setMessageType('error')
           setTimeout(() => {
           setMessage(null)
@@ -128,9 +139,36 @@ const App = () => {
     }
   }
 
+  const showInfo = (event) => {
+    event.preventDefault()
+    phoneBookService
+      .bookInfo()
+      .then(info => {
+      setMessage(info)
+      setMessageType('success')
+      setTimeout(() => {
+        setMessage(null)
+        setMessageType(null)
+      }, 2750)
+      })
+      .catch(err => {
+        setMessage(err.error)
+        setMessageType('error')
+        setTimeout(() => {
+        setMessage(null)
+        setNewName('')
+        setNewNumber('')
+        setMessageType(null)
+        }, 2500)
+        setUpdatePersons('errorUpdatedDel')
+      })
+  }
+
   return (
     <div>
       <h2 className='title'>Phonebook</h2>
+      <br />
+      <button onClick={showInfo}>Show phonebook info</button>
       <br />
       {newMessage && <MessageAlert message={newMessage} ttm={messageType} />}
       <br />

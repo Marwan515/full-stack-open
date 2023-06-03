@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0Nzc2MDVjNDhhYjExYmMwZWIwYzhiZCIsImlhdCI6MTY4NTU0NTA4MX0.VFg4jFejUaU8wWfLWa6_fIkhoBikCblFsk-bAcZLCrc
+
+{
+  "title":"Re API dev.to",
+  "author":"Leandro Lima",
+  "url":"https://dev.to/limaleandro1999/creating-a-restful-api-with-nodejs-and-mongodb-3o7o",
+  "likes": 23
+}

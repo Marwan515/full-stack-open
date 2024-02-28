@@ -1,0 +1,7 @@
+PUT http://localhost:3003/api/blogs/65dcef087447da73b7916efd/comments HTTP/1.1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY1YzkxMjRmNGU0NzQ3MDFjNWFhNzVmNSIsImlhdCI6MTcwOTEwNDczMH0.p3yYwJ-PLisB_zIWCVO-mnDNnllmBJ5OrX0CPZ0MQ2w
+
+{
+  "comment": "Hey Guys second"
+}

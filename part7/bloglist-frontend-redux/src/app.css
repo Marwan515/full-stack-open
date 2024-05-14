@@ -1,0 +1,39 @@
+body {
+  text-align: center;
+  font-family: cursive;
+  font-style: italic;
+}
+
+.notification {
+  padding: 10px;
+  color: midnightblue;
+  border: 2px solid gold;
+  background-color: rgba(107, 202, 226, 0.856);
+}
+
+.title {
+  margin: -10px -10px 0 -10px;
+  padding: 13px 0 13px 0;
+  background-color: aqua;
+}
+
+.blogBox {
+  background-color: whitesmoke;
+  border: 2px solid black;
+}
+
+button {
+  background-color: rgb(65, 93, 248);
+  color: white;
+  font-size: medium;
+  font-family: cursive;
+  font-weight: bold;
+  font-style: italic;
+  border-radius: 30%;
+}
+
+.blogWhiteBg {
+  background-color: white;
+  border: 3px solid gainsboro;
+  margin: 2px;
+}
